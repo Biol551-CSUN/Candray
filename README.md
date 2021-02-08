@@ -5,7 +5,8 @@
   3. if a publication, list authors, journal info, citation, and content 
   
 In this repository, I will be uploading weekly data, scripts, and output from R code.
-  As of 2021-02-08: BIOL 551-CSUN/Candray:
-    README.md
-    Week_2
+  As of 2021-02-08: 
+    BIOL 551-CSUN/Candray:
+      README.md
+      Week_2
 By Kevin Candray 2021-02-08
