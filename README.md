@@ -3,6 +3,7 @@
   1. gives overview of what the reader will find, like a summary 
   2. lists the contents of the repository
   3. if a publication, list authors, journal info, citation, and content 
+  
 In this repository, I will be uploading weekly data, scripts, and output from R code.
   BIOL 551-CSUN/Candray:
     README.md
