@@ -58,8 +58,8 @@ ggplot(data = ChemData_sqkey, #use ChemData_sqkey
   theme_bw() +
   theme(legend.position = c(0.63, 0.15), #move legend into empty space
         legend.background = element_blank(), 
-        plot.margin = margin(30, 30, 30, 30)) + #put margin around plot
+        plot.margin = margin(60, 60, 30, 30)) + #put margin around plot
   facet_wrap(~Variables, scales = "free") + #make one plot for each variable
   labs(y = " ")+ #remove redundant y label
   ggsave(here("week_4","Output","ChemPlot.png"),
-         width = 5, height = 7)
+         width = 9, height = 9)

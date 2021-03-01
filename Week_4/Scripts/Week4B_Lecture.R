@@ -30,6 +30,11 @@ ChemData_clean<- ChemData %>%
   group_by(Variables, Site) %>% 
   summarise(Param_means = mean(Values, na.rm = TRUE),
             Param_vars = var(Values, na.rm = TRUE))
+ChemData %>% 
+  ggplot(aes(x = Site, y = Values))+
+  geom_boxplot()+
+  facet_wrap(~Variables)
+rlang::last_error()
 head(ChemData_clean)
 View(ChemData_clean)
 #separate function:
