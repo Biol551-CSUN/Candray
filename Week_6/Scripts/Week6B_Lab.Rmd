@@ -51,7 +51,7 @@ View(ChemData_sqkey)
 ```
 
 # Making a Plot 
-```{r, fig.width=9, fig.height=6, fig.align="center"}
+```{r ChemFig, fig.width=9, fig.height=6, fig.align="center"}
 ggplot(data = ChemData_sqkey, #use ChemData_sqkey
        aes(x = Salinity, #put salinity on x axis
            y = Values, #put values of each variable on y axis
