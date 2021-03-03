@@ -1,0 +1,67 @@
+---
+title: "My First R Markdown"
+author: "Kevin Candray"
+date: "3/1/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+# Header 1  
+## Header 2  
+### Header 3  
+#### Header 4  
+##### Header 5  
+###### Header 6  
+
+Bold text  I **love** RMarkdown  
+Italics text  I *love* RMarkdown  
+
+adding a new line, type the space bar twice after  
+
+lists:
+- item 1
+- item 2
+- item 3
+
+1. item 1
+1. item 2
+1. item 3  
+
+images
+![CSUN logo](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.csun.edu%2Fidentity%2Flogo-marks&psig=AOvVaw3e8fxJMdy32FtaOQT50E0V&ust=1614706266988000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCU2t3Pj-8CFQAAAAAdAAAAABAD)
+
+
+links
+[Click Here](google.com)  
+
+adding code chunks  
+ctrl + alt + I 
+
+I have control on what is printed in the html within the code chunks 
+```{r}
+library(tidyverse)
+library(beepr)
+beep(8)
+```
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

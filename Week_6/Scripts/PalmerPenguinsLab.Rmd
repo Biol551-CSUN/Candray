@@ -1,0 +1,50 @@
+---
+title: "Palmer Penguins Lab"
+author: "Kevin Candray"
+date: "3/1/2021"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning=FALSE,
+                      message=FALSE)
+```
+
+# Intro:  
+Today we are working with the Palmer Penguin data to learn *RMarkdown*.
+
+## Load Libs:
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(here)
+library(beepr)
+```
+
+# Inspect the Data:
+
+```{r}
+glimpse(penguins)
+```
+
+# Make a plot:
+This is a plot of the palmer pengion data set from **RStudio**. It is divided by species in color.
+Species are:  
+- Gentoo  
+- Adelie  
+- Chinstrap  
+```{r}
+penguins %>% 
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  labs(x = "Bill Length (mm)",
+       y = "Bill Depth (mm)")+
+  theme_bw()
+beep(10)
+```
+
