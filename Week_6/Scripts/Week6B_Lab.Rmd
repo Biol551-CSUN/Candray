@@ -15,12 +15,13 @@ knitr::opts_chunk$set(echo = TRUE, message=TRUE, warning=FALSE,
 ```
 
 # Intro
-This is my homework assignment, using the chem data from week 4 and making a plot using **R markdown**
+This is my homework assignment, using the chem data from week 4 and making a plot using **R markdown**.
 
 # Load the Libs
 ```{r}
 library(tidyverse)
 library(here)
+library(kableExtra)
 ```
 
 # Loading the data 
@@ -65,3 +66,12 @@ ggplot(data = ChemData_sqkey, #use ChemData_sqkey
   labs(y = " ") #remove redundant y label
 ```
 
+# Making a table
+```{r}
+ChemData_sqkey %>% 
+  group_by(Site) %>% 
+  summarise(salinityavg = mean(Salinity, na.rm = TRUE)) %>% 
+  kbl() %>% #makes a formatted table
+  kable_classic() %>% 
+  row_spec(2, bold = T, color = "white", background = "#97CFAE")
+```

@@ -1,0 +1,60 @@
+---
+title: "Week7A_Lab"
+author: "Kevin Candray"
+date: "3/8/2021"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+#  Intro:
+Today in lab we will be creating a map using Rstudio representing meteorite sightings.  
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning=FALSE,
+                      message=FALSE,
+                      fig.path = "../Output/")
+
+```
+#  Load the libs
+```{r}
+library(tidyverse)
+library(here)
+library(maps)
+library(mapdata)
+library(mapproj)
+```
+
+
+#  Load the Data
+```{r}
+meteorites <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-06-11/meteorites.csv")
+world <- map_data("world")
+View(meteorites)
+View(world)
+```
+# Filter the data for 1990-2013
+```{r}
+meteorites_clean <- meteorites %>% 
+  filter(year == 1990:2013)
+```
+
+#  Making a plot
+```{r MeteorFig, fig.width=9, fig.height=6, fig.align="center"}
+ggplot()+
+  geom_polygon(data = world, aes(x= long, y=lat, group=group, fill=region),
+               color = "black")+
+  geom_point(data = meteorites_clean, 
+             aes(x= long, y= lat, size = mass))+
+  guides(fill=FALSE)+
+  theme_void()+
+  labs(size = "# mass in grams",
+       title = "Map of Meteorite Sightings Around the World: 1990-2013")+
+  scale_size_continuous()+
+  theme(panel.background = element_rect(fill="lightblue"))+
+  coord_map(projection = "mercator",
+            xlim = c(-180,180))
+```
+
+

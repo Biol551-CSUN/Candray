@@ -51,7 +51,7 @@ View(ChemData_sqkey)
 ###########################################
 #plot
 ggplot(data = ChemData_sqkey, #use ChemData_sqkey
-       aes(x = Salinity, #put salinity on x axis
+       aes(x = pH, #put salinity on x axis
            y = Values, #put values of each variable on y axis
            color = Site)) + #color by site
   geom_line() + #make it a line graph
