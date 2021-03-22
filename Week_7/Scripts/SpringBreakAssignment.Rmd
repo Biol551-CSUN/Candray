@@ -1,0 +1,45 @@
+---
+title: "Bad Plot vs. Good Plot"
+author: "Kevin Candray"
+date: "3/20/2021"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Intro
+```{r}
+#loading the libs 
+library(tidyverse)
+library(ggplot2)
+library(here)
+library(dplyr)
+
+```
+
+# Loading the Data
+```{r}
+christmas_songs <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-24/christmas_songs.csv")
+View(christmas_songs)
+```
+
+# Data Wrangling
+```{r}
+christmas_songs %>% 
+  ggplot(aes(x = year, # name x axis 
+             y = week_position, # name y axis 
+             color = performer))+
+  geom_line()+
+  geom_point()+
+  labs(title = "Weekly Performer Position of X-Mas Music",
+       x= "Time (years)", 
+       y= "Week Position")+
+  theme_classic()+
+  theme(axis.title = element_text(size = 12))
+```
+
