@@ -48,7 +48,8 @@ christmas_songs$month<- as.numeric(christmas_songs$month)
 MCAG_Songs<- christmas_songs %>% filter(performer == 'Mariah Carey' | performer == 'Ariana Grande')
 ```
 
-# Bad Plot
+# Bad Plot  
+This is a bad plot because the title does not fully explain what the graph is about. The labels of the x and y axis are confusing because it is unknown what the numbers mean. 1, 2, 3 could be apples, oranges, etc. The data itself is very convoluted because it is unknown what it's trying to say. Is 100 good or bad? is it a rank? what are the dots? many questions unanswered.
 ```{r}
 MCAG_Songs %>% 
   ggplot(aes(x = month, # name x axis 
@@ -56,17 +57,21 @@ MCAG_Songs %>%
              color = performer))+
   geom_line()+
   geom_jitter()+
+  labs(x= "month",
+       y= "week position",
+       title = "Mariah vs Ariana Xmas Music")
   ggsave(here("Week_7", "output","badplot.png"), width = 9, height = 8)
   
 ```
-# Good Plot
+# Good Plot  
+This a good plot because the title explains what the graph(s) are about. The x and y axis are properly labeled. The legend is in a better location, the data is cut into the different years. It is clear to see that Mariah charts higher on the Billboard Hot 100 more than Ariana. 
 ```{r}
 MCAG_Songs %>% 
   ggplot(aes(x = month, # name x axis 
              y = week_position, # name y axis 
              color = performer))+
   geom_line(size=1.2)+
-  geom_point(size=1)+
+  geom_jitter(size=1)+
   labs(title = "Weekly Performer Position of X-Mas Music",
        x= "Time (months)", 
        y= "Week Position")+
@@ -79,7 +84,11 @@ MCAG_Songs %>%
         legend.background = element_blank(), 
         plot.margin = margin(60, 60, 30, 30)) + #put margin around plot
   facet_wrap(~year) + #make one plot for each variable
-  labs(y = " ")+
+  labs(y = "Billboard Hot 100 Week Position",
+       x = "",
+       color = "",
+       title = "Weekly Position of Ariana Grande & Mariah Carey Christmas Music \n",
+       caption = "Made by: Kevin Candray")+
   scale_color_manual(values = c("Ariana Grande" = "#26b575",
                                 "Mariah Carey" = "#ff0000")) +
   theme(axis.title = element_text(size = 12))+
