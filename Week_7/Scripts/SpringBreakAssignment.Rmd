@@ -28,18 +28,61 @@ christmas_songs <- readr::read_csv("https://raw.githubusercontent.com/rfordatasc
 View(christmas_songs)
 ```
 
-# Data Wrangling
+# Changing the Month number to the month name 
 ```{r}
-christmas_songs %>% 
-  ggplot(aes(x = year, # name x axis 
+#christmas_songs$month <- as.factor(christmas_songs$month) #change month from character to factor so we can rename levels
+christmas_songs$month <- recode_factor(christmas_songs$month, #rename month levels to numbers
+                             "1" = "January",
+                             "2" = "February",
+                             "3" = "March",
+                             "4" = "April",
+                             "5" = "May",
+                             "6" = "June",
+                             "7" = "July",
+                             "8" = "August",
+                             "9" = "September",
+                             "10" = "October",
+                             "11" = "November",
+                             "12" = "December")
+christmas_songs$month<- as.numeric(christmas_songs$month)
+MCAG_Songs<- christmas_songs %>% filter(performer == 'Mariah Carey' | performer == 'Ariana Grande')
+```
+
+# Bad Plot
+```{r}
+MCAG_Songs %>% 
+  ggplot(aes(x = month, # name x axis 
              y = week_position, # name y axis 
              color = performer))+
   geom_line()+
-  geom_point()+
+  geom_jitter()+
+  ggsave(here("Week_7", "output","badplot.png"), width = 9, height = 8)
+  
+```
+# Good Plot
+```{r}
+MCAG_Songs %>% 
+  ggplot(aes(x = month, # name x axis 
+             y = week_position, # name y axis 
+             color = performer))+
+  geom_line(size=1.2)+
+  geom_point(size=1)+
   labs(title = "Weekly Performer Position of X-Mas Music",
-       x= "Time (years)", 
+       x= "Time (months)", 
        y= "Week Position")+
-  theme_classic()+
-  theme(axis.title = element_text(size = 12))
+  theme_bw() +
+   scale_x_continuous(expand = c(0, .1),
+                     breaks = seq(1, 3, 1),
+                     labels = c("Jan.", "Jun.", "Dec.")) + #rename months
+  scale_y_continuous(expand = c(0, 1)) +
+  theme(legend.position = c(0.85, 0.15), #move legend into empty space
+        legend.background = element_blank(), 
+        plot.margin = margin(60, 60, 30, 30)) + #put margin around plot
+  facet_wrap(~year) + #make one plot for each variable
+  labs(y = " ")+
+  scale_color_manual(values = c("Ariana Grande" = "#26b575",
+                                "Mariah Carey" = "#ff0000")) +
+  theme(axis.title = element_text(size = 12))+
+  ggsave(here("Week_7", "output","goodplot.png"), width = 9, height = 8)
 ```
 

@@ -10,8 +10,6 @@ library(tidyverse)
 library(here)
 library(ggsn)
 
-register_google(key = "AIzaSyBXeJgX4y-vRmwWlt8B5YcU3rOP2qCheaI")
-
 ChemData <- read_csv(here("Week_7","Data","chemicaldata_maunalua.csv"))
 glimpse(ChemData)
 
