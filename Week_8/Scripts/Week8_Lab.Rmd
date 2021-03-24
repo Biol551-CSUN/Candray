@@ -1,0 +1,79 @@
+---
+title: "Week8B_Lab"
+author: "Kevin Candray"
+date: "3/24/2021"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Load the libs
+```{r}
+library(tidyverse)
+library(here)
+library(PNWColors)
+```
+# Loading the data
+```{r}
+ChemData <- read_csv(here("Week_4","Data","chemicaldata_maunalua.csv"))
+View(ChemData)
+#noted that there are some NAs in the data 
+glimpse(ChemData)
+#there are 15 columns, and 355 rows
+```
+# Creating function from C to F NON PLOT F(X)
+```{r}
+c_to_f <- function(temp_C){
+  temp_F <- (temp_C*(9/5))+32
+  return(temp_F)
+}
+```
+
+# Testing Function 
+```{r}
+c_to_f(56)
+c_to_f(102)
+```
+# making a function for the plot 
+```{r}
+myplot<-function(data= ChemData, x,y, Time="Day"){
+pal<-pnw_palette("Lake",3, type = "discrete") # my color palette 
+if(Time == "Day"){
+  data %>% 
+    filter(Time == "Day")%>%
+ggplot(aes(x = {{x}}, y = {{y}}, color = Site))+
+  geom_point()+
+  scale_color_manual("Site", values=pal)+   # use pretty colors and change the legend title
+  theme_bw()
+}
+else{
+  data %>% 
+    filter(Time=="Night")
+ggplot(data, aes(x = {{x}}, y = {{y}} , color = Site))+
+  geom_point()+
+  scale_color_manual("Site", values=pal)+   # use pretty colors and change the legend title
+  theme_bw()
+}
+}
+
+```
+
+# Testing Plot f(x)
+```{r}
+myplot(x = Zone, y=pH)+
+labs(x = "Zone",
+       y = "pH Scale")
+```
+
+# Testing Plot Number 2
+```{r}
+myplot(x = Zone, y=Phosphate)+
+labs(x = "Zone",
+       y = "Amount of Phosphate")
+```
+

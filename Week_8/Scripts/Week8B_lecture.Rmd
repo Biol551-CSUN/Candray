@@ -1,0 +1,156 @@
+---
+title: "Week8B_lecture"
+author: "Kevin Candray"
+date: "3/24/2021"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Functions
+```{r}
+rescale01 <- function(x) {
+  value<-(x-min(x, na.rm = TRUE))/(max(x, na.rm = TRUE)-min(x, na.rm = TRUE))
+  return(value)
+}
+# making a function to convert degrees F to C
+#the calculation to convert
+temp_F<- tibble::tibble()
+temp_C <- (temp_F-32)*5/9
+#step 1 name the function, step 2 put in code above between {}, step 3: decide argument 
+fahrenheit_to_celsius <- function(temp_F){
+  temp_C <- (temp_F-32)*5/9
+  return(temp_C)
+}
+
+#fuction from C to K
+temp_K <- (temp_C+273.15)
+kelvin_to_celcius <- function(temp_C){
+  temp_K <- (temp_C+273.15)
+  return(temp_K)
+}
+```
+# functions for plots
+If we create a plot and we want to use it again, as in the format, then we can create a function 
+ex:  
+```{r}
+library(palmerpenguins)
+library(PNWColors) # for the PNW color palette 
+
+pal<-pnw_palette("Lake",3, type = "discrete") # my color palette 
+ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = island))+
+  geom_point()+
+  geom_smooth(method = "lm")+ # add a linear model
+  scale_color_manual("Island", values=pal)+   # use pretty colors and change the legend title
+  theme_bw()
+```
+
+# setting up the function 
+```{r}
+myplot<-function(data= penguins, x,y, lines=TRUE){
+pal<-pnw_palette("Lake",3, type = "discrete") # my color palette 
+if(lines == TRUE){
+ggplot(data, aes(x = {{x}}, y = {{y}}, color = island))+
+  geom_point()+
+  geom_smooth(method = "lm")+ # add a linear model
+  scale_color_manual("Island", values=pal)+   # use pretty colors and change the legend title
+  theme_bw()
+}
+else{
+ggplot(data, aes(x = {{x}}, y = {{y}} , color = island))+
+  geom_point()+
+  scale_color_manual("Island", values=pal)+   # use pretty colors and change the legend title
+  theme_bw()
+}
+}
+```
+
+
+# Load the libs
+```{r}
+library(tidyverse)
+df <- tibble::tibble(
+  a = rnorm(10), # draws 10 random values from a normal distribution
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+head(df)
+
+df<-df %>%
+  mutate(a = (a-min(a, na.rm = TRUE))/(max(a, na.rm = TRUE)-min(a, na.rm = TRUE)))
+
+#copy and paste
+df<-df %>%
+  mutate(a = (a-min(a, na.rm = TRUE))/(max(a, na.rm = TRUE)-min(a, na.rm = TRUE)),
+         b = (b-min(b, na.rm = TRUE))/(max(a, na.rm = TRUE)-min(b, na.rm = TRUE)),
+         c = (c-min(c, na.rm = TRUE))/(max(c, na.rm = TRUE)-min(c, na.rm = TRUE)),
+         d = (d-min(d, na.rm = TRUE))/(max(d, na.rm = TRUE)-min(d, na.rm = TRUE)))
+#is there anything wrong . . . 
+
+rescale01 <- function(x) {
+  value<-(x-min(x, na.rm = TRUE))/(max(x, na.rm = TRUE)-min(x, na.rm = TRUE))
+  return(value)
+}
+df %>%
+  mutate(a = rescale01(a),
+         b = rescale01(b),
+         c = rescale01(c),
+         d = rescale01(d))
+```
+# Creating a function
+```{r}
+# 3 steps
+#pick a name for the function
+#list the inputs (arguments)
+#place the code you have developed in body of the function
+#rescale01 <- function(x) {
+  #value<-(x-min(x, na.rm = TRUE))/(max(x, na.rm = TRUE)-min(x, na.rm = TRUE))
+ # return(value)
+#} moving to top of script bc functions should be there so it works,
+```
+# test F to C function 
+```{r}
+fahrenheit_to_celsius(32)
+```
+# test k to C function 
+```{r}
+kelvin_to_celcius(45)
+```
+
+# testing my plot function 
+```{r}
+myplot(data = penguins, x = body_mass_g, y = bill_length_mm)
+```
+#Testing plot function 
+```{r}
+myplot(data = penguins, x = body_mass_g, y = flipper_length_mm)
+```
+# Adding layers
+```{r}
+myplot(x = body_mass_g, y = flipper_length_mm)+
+  labs(x = "Body mass (g)",
+       y = "Flipper length (mm)")
+```
+# Adding an **if-else** statement for more felxability 
+```{r}
+a<- 4
+b<- 5
+
+if (a > b) { # my question
+  f <- 20 # if it is true give me answer 1
+    } else { # else give me answer 2
+  f <- 10
+    }
+f
+```
+# Testing if else function 
+```{r}
+myplot(x = body_mass_g, y = flipper_length_mm)
+myplot(x = body_mass_g, y = flipper_length_mm, lines = FALSE)
+```
+
