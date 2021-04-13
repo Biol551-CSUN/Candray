@@ -90,3 +90,4 @@ meteorites <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience
 world <- map_data("world")
 meteorites_clean <- meteorites %>% 
   filter(year = "1990-2013")
+#error
